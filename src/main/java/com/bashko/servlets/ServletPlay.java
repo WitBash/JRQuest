@@ -14,6 +14,7 @@ import java.io.IOException;
 @WebServlet(name = "ServletPlay", value = "/play")
 public class ServletPlay extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(ServletPlay.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String answer = req.getParameter("answer");
@@ -22,21 +23,26 @@ public class ServletPlay extends HttpServlet {
 
         log.info("Gamer chose variant " + answer + " in " + count + " game");
 
-        if (answer.equals("Принять вызов")) {
-            getServletContext().getRequestDispatcher("/playLevelTwo.jsp").forward(req, resp);
-        } else if (answer.equals("Подняться на мостик")) {
-            getServletContext().getRequestDispatcher("/playLevelThree.jsp").forward(req, resp);
-        } else if (answer.equals("Рассказать правду о себе")) {
-            req.setAttribute("result", "Тебя вернули домой.");
-            getServletContext().getRequestDispatcher("/playWin.jsp").forward(req, resp);
-        } else {
-            if (answer.equals("Отклонить вызов")) {
+        switch (answer) {
+            case "Принять вызов" -> {
+                getServletContext().getRequestDispatcher("/playLevelTwo.jsp").forward(req, resp);
+            }
+            case "Отклонить вызов" -> {
                 req.setAttribute("result", "Ты отклонил вызов.");
                 getServletContext().getRequestDispatcher("/playLoss.jsp").forward(req, resp);
-            } else if (answer.equals("Отказаться подниматься на мостик")) {
+            }
+            case "Подняться на мостик" -> {
+                getServletContext().getRequestDispatcher("/playLevelThree.jsp").forward(req, resp);
+            }
+            case "Отказаться подниматься на мостик" -> {
                 req.setAttribute("result", "Ты не пошел на переговоры.");
                 getServletContext().getRequestDispatcher("/playLoss.jsp").forward(req, resp);
-            } else if (answer.equals("Солгать о себе")) {
+            }
+            case "Рассказать правду о себе" -> {
+                req.setAttribute("result", "Тебя вернули домой.");
+                getServletContext().getRequestDispatcher("/playWin.jsp").forward(req, resp);
+            }
+            case "Солгать о себе" -> {
                 req.setAttribute("result", "Твою ложь разоблачили.");
                 getServletContext().getRequestDispatcher("/playLoss.jsp").forward(req, resp);
             }
