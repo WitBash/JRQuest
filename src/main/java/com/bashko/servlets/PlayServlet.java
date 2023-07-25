@@ -11,17 +11,18 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-@WebServlet(name = "ServletPlay", value = "/play")
-public class ServletPlay extends HttpServlet {
-    private static final Logger log = LoggerFactory.getLogger(ServletPlay.class);
+@WebServlet(name = "PlayServlet", value = "/play")
+public class PlayServlet extends HttpServlet {
+    private static final Logger log = LoggerFactory.getLogger(PlayServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String answer = req.getParameter("answer");
 
+        String name = req.getSession().getAttribute("name").toString();
         int count = (Integer) req.getSession().getAttribute("count");
 
-        log.info("Gamer chose variant " + answer + " in " + count + " game");
+        log.info("Gamer " + name + " chose variant " + answer + " in " + count + " game");
 
         switch (answer) {
             case "Принять вызов" -> {

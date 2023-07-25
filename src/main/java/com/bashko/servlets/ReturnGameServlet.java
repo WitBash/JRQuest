@@ -11,17 +11,16 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-@WebServlet(name = "ServletQuitGame", value = "/playQuit")
-public class ServletQuitGame extends HttpServlet {
-    private static final Logger log = LoggerFactory.getLogger(ServletQuitGame.class);
+@WebServlet(name = "ReturnGameServlet", value = "/playReturn")
+public class ReturnGameServlet extends HttpServlet {
+    private static final Logger log = LoggerFactory.getLogger(ReturnGameServlet.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String name = req.getSession().getAttribute("name").toString();
-        req.getSession().invalidate();
+        int count = (Integer) req.getSession().getAttribute("count");
 
-        log.info("Session closed. Gamer with name " + name + " left game");
+        log.info("Gamer " + name + " wants refresh his game in " + count + " times");
 
-        resp.sendRedirect("/");
+        resp.sendRedirect("/start");
     }
 }

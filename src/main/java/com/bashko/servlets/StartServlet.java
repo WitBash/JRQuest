@@ -11,14 +11,14 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-@WebServlet(name = "ServletStart", value = "/start")
-public class ServletStart extends HttpServlet {
+@WebServlet(name = "StartServlet", value = "/start")
+public class StartServlet extends HttpServlet {
     private final int START_COUNT_GAME = 0;
     private int countGame;
     private HttpSession session;
     private String name;
 
-    private static final Logger log = LoggerFactory.getLogger(ServletStart.class);
+    private static final Logger log = LoggerFactory.getLogger(StartServlet.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
